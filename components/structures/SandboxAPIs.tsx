@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Navigation = () => {
+const SandboxAPIs = () => {
   return (
     <div className='w-72 bred fixed p-4'>
-      Navigation
+      sandbox api sidebar
     </div>
   )
 }
 
-export default Navigation
+export default SandboxAPIs
