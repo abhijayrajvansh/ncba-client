@@ -19,7 +19,7 @@ const Home = () => {
                 </p>
               </div>
               <div className="space-x-4">
-                <Button variant="outline" size={'lg'} className="">
+                <Button variant="outline" size={'lg'} disabled>
                   View Documentation
                 </Button>
                 <Button asChild size={'lg'} className='font-bold text-md'>
