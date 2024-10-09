@@ -36,8 +36,9 @@ const ProductCard = ({ product }: ProductCardProps ) => (
       </div>
     </CardContent>
     </div>
-    <CardFooter className=''>
-      <Button className="w-full font-semibold text-white">View More</Button>
+    <CardFooter className='flex ite gap-3'>
+      <Button variant={'outline'} className="w-full font-semibol">Docs</Button>
+      <Button className="w-full font-semibold text-white">View Details</Button>
     </CardFooter>
   </Card>
 );
