@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "NCBA",
+  title: "Open Banking API Portal",
   description: "API Developer Portal",
 };
 
