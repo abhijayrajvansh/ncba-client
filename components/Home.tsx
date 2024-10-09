@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import Link from 'next/link'
-import { Code, Database, Key, Lock, Server, Zap } from "lucide-react"
+import { Lock, Server, Zap } from "lucide-react"
 
 const Home = () => {
   return (
