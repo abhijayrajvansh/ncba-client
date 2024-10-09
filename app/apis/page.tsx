@@ -1,10 +1,7 @@
-import Apis from "@/components/Apis";
-
+import Apis from "@/components/pages/Apis";
 
 const page = () => {
-  return (
-    <Apis />
-  );
+  return <Apis />;
 };
 
 export default page;

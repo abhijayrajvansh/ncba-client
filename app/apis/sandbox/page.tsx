@@ -1,14 +1,9 @@
-import SandboxAPIs from '@/components/structures/SandboxAPIs'
+import Sandbox from '@/components/pages/Sandbox'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      <SandboxAPIs />
-      <div className='bred ml-72 p-4'>
-        content
-      </div>
-    </div>
+    <Sandbox />
   )
 }
 
