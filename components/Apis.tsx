@@ -9,7 +9,7 @@ const Apis = () => {
   return (
     <div className="px-5">
       <div className="p-4 rounded-lg">
-        <div className="mb-7 text-center flex flex-col gap-3">
+        <div className="my-7 text-center flex flex-col gap-3">
           <div className="text-4xl">Get started with Open Banking APIs</div>
           <p className="text-gray-500">Build and securely integrate your digital solutions</p>
         </div>
