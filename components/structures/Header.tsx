@@ -62,7 +62,7 @@ const Header = () => {
             if (currentPathname === "/home") currentPathname = "/";
             if (currentPathname === "/contact us") currentPathname = "/contact-us";
 
-            const isActive = pathname === currentPathname;
+            const isActive = items.link === "/" ? pathname === "/" : pathname.startsWith(items.link);
 
             return (
               <Link
