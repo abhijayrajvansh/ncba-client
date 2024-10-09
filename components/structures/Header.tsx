@@ -12,52 +12,19 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { headerItems } from '@/config/headerItems.config'
 
-const navigation_items = [
-  {
-    title: "Home",
-    link: "/",
-  },
-  {
-    title: "APIs",
-    link: "/apis",
-  },
-  {
-    title: "Products",
-    link: "/products",
-  },
-  {
-    title: "Resources",
-    link: "/resources",
-  },
-  {
-    title: "FAQs",
-    link: "/faqs",
-  },
-  {
-    title: "Contact Us",
-    link: "/contact-us",
-  },
-];
 
 const Header = () => {
   const pathname = usePathname();
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
-      {/* logo */}
       <Link href={"/"}>
-        <Image
-          width={130}
-          height={56}
-          className="h-14"
-          src="/ncba-logo.png"
-          alt="ncba.png"
-        />
+        <div className="font-bold text-3xl">LOGO.</div>
       </Link>
-      {/* navbar items */}
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-6 mr-6">
-          {navigation_items.map((items) => {
+          {headerItems.map((items) => {
             let currentPathname = "/" + items.title.toLowerCase();
             if (currentPathname === "/home") currentPathname = "/";
             if (currentPathname === "/contact us") currentPathname = "/contact-us";
