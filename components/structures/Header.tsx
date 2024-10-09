@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Image from "next/image";
 import { headerItems } from '@/config/headerItems.config'
 
 
@@ -20,7 +19,7 @@ const Header = () => {
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
       <Link href={"/"}>
-        <div className="font-bold text-3xl">LOGO.</div>
+        <div className="font-bold text-2xl text-gray-600">Developer Portal</div>
       </Link>
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-6 mr-6">
