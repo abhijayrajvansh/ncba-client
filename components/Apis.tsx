@@ -8,7 +8,7 @@ const Apis = () => {
   return (
     <div className="px-5">
       <div className="p-4 rounded-lg">
-        <div className="flex items-center gap-5 px-2 mb-5">
+        <div className="flex items-center gap-5 px-2 mb-6 ">
           <div className=" text-2xl font-semibold">Filter By Category</div>
           <div>
             <Input
@@ -38,7 +38,7 @@ const Apis = () => {
             <TabsTrigger value="CARD APIs">CARD APIs</TabsTrigger>
           </TabsList>
 
-          <div className="mt-5 bg-gray-100 p-4 rounded-md h-screen w-full">
+          <div className="mt-7 bg-gray-100 p-4 rounded-md h-screen w-full">
             <TabsContent value="All Categories">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {products.map((product, index) => (
