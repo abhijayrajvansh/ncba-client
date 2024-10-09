@@ -43,7 +43,7 @@ const navigation_items = [
 const Header = () => {
   const pathname = usePathname();
   return (
-    <div className="flex justify-between py-4 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
+    <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
       {/* logo */}
       <Link href={"/"}>
         <Image
