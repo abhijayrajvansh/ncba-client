@@ -9,8 +9,12 @@ const Apis = () => {
   return (
     <div className="px-5">
       <div className="p-4 rounded-lg">
-        <div className="flex items-center justify-between gap-5 px-2 mb-6 ">
-          <div className=" text-2xl font-semibold">Filter By Category</div>
+        <div className="mb-7 text-center flex flex-col gap-3">
+          <div className="text-4xl">Get started with Open Banking APIs</div>
+          <p className="text-gray-500">Build and securely integrate your digital solutions</p>
+        </div>
+        <div className="flex items-center justify-between gap-5 px-2 mb-5">
+          <div className="text-xl font-semibold">Filter By Category</div>
           <div>
             <div className="flex items-center gap-3">
               <Input
@@ -18,10 +22,11 @@ const Apis = () => {
                 placeholder="Search through our APIs"
                 className="bg-gray-100 w-52"
               />
-              <Button disabled >Search</Button>
+              <Button disabled>Search</Button>
             </div>
           </div>
         </div>
+
         <Tabs defaultValue="All Categories">
           <TabsList>
             <TabsTrigger value="All Categories">All Categories</TabsTrigger>
