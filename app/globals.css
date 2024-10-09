@@ -104,3 +104,27 @@ body {
     @apply border-2 border-white
   }
 }
+
+
+
+/* Style the scrollbar track (the part that moves the thumb) */
+::-webkit-scrollbar-track {
+  background: #ffffff; /* Light grey track */
+  border-radius: 10px;
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: #2563EB; /* Red thumb */
+  border-radius: 5px;
+}
+
+/* Style the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB; /* Darker red thumb on hover */
+}
+
+/* Style the scrollbar itself */
+::-webkit-scrollbar {
+  width: 9px; /* Width of the scrollbar */
+}
