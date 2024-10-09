@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import {
@@ -7,6 +9,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const navigation_items = [
   {
@@ -15,7 +20,7 @@ const navigation_items = [
   },
   {
     title: "APIs",
-    link: "/",
+    link: "/apis",
   },
   {
     title: "Products",
@@ -36,19 +41,40 @@ const navigation_items = [
 ];
 
 const Header = () => {
+  const pathname = usePathname();
   return (
-    <div className="flex justify-between py-5 px-10 mb-6 border-b items-center shadow-md">
+    <div className="flex justify-between py-4 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
       {/* logo */}
-      <img src="" alt="ncba.png" />
+      <Link href={"/"}>
+        <Image
+          width={130}
+          height={56}
+          className="h-14"
+          src="/ncba-logo.png"
+          alt="ncba.png"
+        />
+      </Link>
       {/* navbar items */}
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-6 mr-6">
-          {navigation_items.map((items) => (
-            <div key={items.title} className="font-semibold">{items.title}</div>
-          ))}
+          {navigation_items.map((items) => {
+            let currentPathname = "/" + items.title.toLowerCase();
+            if (currentPathname === "/home") currentPathname = "/";
+
+            const isActive = pathname === currentPathname;
+
+            return (
+              <Link
+                href={items.link}
+                key={items.title}
+                className={`font-semibold ${isActive ? "text-primary" : ""}`}
+              >
+                {items.title}
+              </Link>
+            );
+          })}
 
           <Select defaultValue="Kenya">
-            {/* ye width wala hai down */}
             <SelectTrigger className="w-[100px] bg-gray-100">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
@@ -61,7 +87,10 @@ const Header = () => {
           </Select>
         </div>
 
-        <Button className="font-semibold border-primary text-primary hover:bg-primary hover:text-white" variant={"outline"}>
+        <Button
+          className="font-semibold border-primary text-primary hover:bg-primary hover:text-white"
+          variant={"outline"}
+        >
           login
         </Button>
         <Button className="font-semibold">sign up</Button>
