@@ -24,19 +24,19 @@ const navigation_items = [
   },
   {
     title: "Products",
-    link: "/",
+    link: "/products",
   },
   {
     title: "Resources",
-    link: "/",
+    link: "/resources",
   },
   {
     title: "FAQs",
-    link: "/",
+    link: "/faqs",
   },
   {
     title: "Contact Us",
-    link: "/",
+    link: "/contact-us",
   },
 ];
 
@@ -60,6 +60,7 @@ const Header = () => {
           {navigation_items.map((items) => {
             let currentPathname = "/" + items.title.toLowerCase();
             if (currentPathname === "/home") currentPathname = "/";
+            if (currentPathname === "/contact us") currentPathname = "/contact-us";
 
             const isActive = pathname === currentPathname;
 
