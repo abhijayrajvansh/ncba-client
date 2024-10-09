@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
       <Link href={"/"}>
-        <div className="font-bold text-2xl text-gray-600">Developer Portal</div>
+        <div className="font-bold text-2xl text-gray-600">OpenBank API.</div>
       </Link>
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-6 mr-6">
