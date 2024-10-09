@@ -37,14 +37,14 @@ const navigation_items = [
 
 const Header = () => {
   return (
-    <div className="flex justify-between text-lg py-5 px-10 mb-6 border-b items-center shadow-xl">
+    <div className="flex justify-between py-5 px-10 mb-6 border-b items-center shadow-md">
       {/* logo */}
       <img src="" alt="ncba.png" />
       {/* navbar items */}
       <div className="flex items-center gap-5">
-        <div className="flex items-center gap-6 mr-10">
+        <div className="flex items-center gap-6 mr-6">
           {navigation_items.map((items) => (
-            <div className="font-semibold">{items.title}</div>
+            <div key={items.title} className="font-semibold">{items.title}</div>
           ))}
 
           <Select defaultValue="Kenya">
@@ -61,10 +61,10 @@ const Header = () => {
           </Select>
         </div>
 
-        <Button size={"lg"} className="font-semibold text-lg border-primary text-primary hover:bg-primary hover:text-white" variant={"outline"}>
+        <Button className="font-semibold border-primary text-primary hover:bg-primary hover:text-white" variant={"outline"}>
           login
         </Button>
-        <Button size={"lg"} className="font-semibold text-lg">sign up</Button>
+        <Button className="font-semibold">sign up</Button>
       </div>
     </div>
   );
