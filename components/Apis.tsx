@@ -11,7 +11,7 @@ const Apis = () => {
       <div className="p-4 rounded-lg">
         <div className="my-7 text-center flex flex-col gap-3">
           <div className="text-4xl">Get started with Open Banking APIs</div>
-          <p className="text-gray-500">Build and securely integrate your digital solutions</p>
+          <p className="text-gray-500">Build and securely integrate your digital solutions.</p>
         </div>
         <div className="flex items-center justify-between gap-5 px-2 mb-5">
           <div className="text-xl font-semibold">Filter By Category</div>
