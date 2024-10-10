@@ -11,14 +11,15 @@ import {
 
 const SelectSDK = () => {
   return (
-    <Select defaultValue="Javascript">
+    <Select defaultValue="curl">
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Select a fruit" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Select Language SDK</SelectLabel>
-          <SelectItem value="Javascript">Javascript</SelectItem>
+          <SelectItem value="curl">cURL</SelectItem>
+          <SelectItem value="javascript">JavaScript</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
