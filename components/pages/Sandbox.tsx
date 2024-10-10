@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Code, Send } from "lucide-react"
+import CodeBlocks from '@/components/structures/CodeBlocks'
 
 // Define the type for each endpoint response
 type EndpointResponse = {
@@ -28,7 +29,7 @@ export default function Sandbox () {
   const [requestBody, setRequestBody] = useState('')
   const [response, setResponse] = useState('')
   const [responseStatus, setResponseStatus] = useState('')
-  const [headers, setHeaders] = useState({ 'Subscription-Key': '' })
+  const [headers, setHeaders] = useState({ 'Subscription-Key': 'bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8' })
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
@@ -129,7 +130,7 @@ export default function Sandbox () {
               </TabsList>
               <TabsContent value="body" className="p-4 border rounded-md bg-gray-50">
                 <pre className="whitespace-pre-wrap break-words">
-                  <code>{response}</code>
+                  <CodeBlocks language='javascript'>{response}</CodeBlocks>
                 </pre>
               </TabsContent>
               <TabsContent value="headers" className="p-4 border rounded-md bg-gray-50">
