@@ -34,7 +34,7 @@ const Header = () => {
               <Link
                 href={items.link}
                 key={items.title}
-                className={`hover:text-primary  ${isActive ? "text-primary font-semibold" : ""}`}
+                className={`hover:text-primary  ${isActive ? "text-primary" : ""}`}
               >
                 {items.title}
               </Link>

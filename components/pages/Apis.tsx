@@ -12,7 +12,7 @@ const Apis = () => {
     <div className="px-5">
       <div className="p-4 rounded-lg">
         <div className="my-7 text-center flex flex-col gap-3">
-          <div className="text-4xl">Get started with Open Banking APIs</div>
+          <div className="text-4xl text-blue-900 font-semibold">Get started with Open Banking APIs</div>
           <p className="text-gray-500">
             Build and securely integrate your digital solutions.
           </p>
