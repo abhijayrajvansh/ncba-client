@@ -28,10 +28,36 @@ export default function Sandbox () {
   const [requestBody, setRequestBody] = useState('')
   const [response, setResponse] = useState('')
   const [responseStatus, setResponseStatus] = useState('')
+  const [headers, setHeaders] = useState({ 'Subscription-Key': '' })
+
+  const isValidSubscriptionKey = (subscriptionKey: string) => {
+    const response = false;
+
+    // validation logic for subs keys
+    if (subscriptionKey === 'bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8') return true;
+
+    return response;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
     const mockResponse = mockEndpoints[endpoint]
+
+    // checking for subscription key
+    if (!headers['Subscription-Key']) {
+      setResponseStatus('403 Forbidden')
+      setResponse(JSON.stringify({ error: 'Missing subscription key' }, null, 2))
+      return
+    }
+
+    // validating subscription keys
+    if (!isValidSubscriptionKey(headers['Subscription-Key'])) {
+      setResponseStatus('403 Forbidden')
+      setResponse(JSON.stringify({ error: 'Invalid subscription key' }, null, 2))
+      return
+    }
+    
     if (mockResponse && mockResponse.method === method) {
       setResponseStatus('200 OK')
       setResponse(JSON.stringify(mockResponse.response, null, 2))
@@ -71,6 +97,12 @@ export default function Sandbox () {
                   className="flex-grow"
                 />
               </div>
+              <Input
+                placeholder="Subscription Key"
+                value={headers['Subscription-Key']}
+                onChange={(e) => setHeaders({ ...headers, 'Subscription-Key': e.target.value })}
+                className="w-full"
+              />
               <Textarea
                 placeholder="Request Body (JSON)"
                 value={requestBody}
@@ -103,6 +135,7 @@ export default function Sandbox () {
               <TabsContent value="headers" className="p-4 border rounded-md bg-gray-50">
                 <p><strong>Status:</strong> {responseStatus}</p>
                 <p><strong>Content-Type:</strong> application/json</p>
+                <p><strong>Subscription-Key:</strong> {headers['Subscription-Key'] || 'None'}</p>
               </TabsContent>
             </Tabs>
           </CardContent>
