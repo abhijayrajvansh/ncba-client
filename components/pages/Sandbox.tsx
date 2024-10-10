@@ -7,16 +7,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Code, Send } from "lucide-react"
+import { Send } from "lucide-react"
 import CodeBlocks from '@/components/structures/CodeBlocks'
 
-// Define the type for each endpoint response
 type EndpointResponse = {
   method: string
   response: object
 }
 
-// Mock API endpoints
+// mocking sample api endpoints
 const mockEndpoints: Record<string, EndpointResponse> = {
   '/api/users': { method: 'GET', response: { users: [{ id: 1, name: 'John Doe' }, { id: 2, name: 'Jane Smith' }] } },
   '/api/user': { method: 'POST', response: { message: 'User created successfully', id: 3 } },
@@ -27,9 +26,9 @@ export default function Sandbox () {
   const [endpoint, setEndpoint] = useState('/api/users')
   const [method, setMethod] = useState('GET')
   const [requestBody, setRequestBody] = useState('')
-  const [response, setResponse] = useState('')
+  const [response, setResponse] = useState('{ "status": "waiting for request" }')
   const [responseStatus, setResponseStatus] = useState('')
-  const [headers, setHeaders] = useState({ 'Subscription-Key': 'bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8' })
+  const [headers, setHeaders] = useState({ 'Subscription-Key': '' })
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;

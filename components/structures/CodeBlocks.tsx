@@ -1,17 +1,22 @@
-'use client'
+"use client";
 
-import { ClipboardCheck, ClipboardCopy } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { materialLight, materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { ClipboardCheck, ClipboardCopy } from "lucide-react";
+import { useEffect, useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import { gruvboxLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
-type CodeProps = {
-  children: string; 
+type CodeBlocksProps = {
+  children: string;
   language: string;
+  enableCopyToClipboard?: boolean;
 };
 
-const CodeBlocks = ({ children, language }: CodeProps) => {
+const CodeBlocks = ({
+  children,
+  language,
+  enableCopyToClipboard = false,
+}: CodeBlocksProps) => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -23,13 +28,21 @@ const CodeBlocks = ({ children, language }: CodeProps) => {
 
   return (
     <div className="code">
-      <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
-        <button className="icon copy-icon">
-          {copied ? <ClipboardCheck /> : <ClipboardCopy />}
-        </button>
-      </CopyToClipboard>
-      <SyntaxHighlighter language={language} style={materialDark}>
-          {children}
+      <div className="flex mb-3 justify-end">
+        {enableCopyToClipboard && (
+          <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
+            <button className="icon copy-icon">
+              {copied ? (
+                <ClipboardCheck className="text-green-500" />
+              ) : (
+                <ClipboardCopy />
+              )}
+            </button>
+          </CopyToClipboard>
+        )}
+      </div>
+      <SyntaxHighlighter language={language} style={gruvboxLight}>
+        {children}
       </SyntaxHighlighter>
     </div>
   );
