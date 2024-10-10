@@ -26,8 +26,8 @@ export default function Sandbox () {
   const [endpoint, setEndpoint] = useState('/api/users')
   const [method, setMethod] = useState('GET')
   const [requestBody, setRequestBody] = useState('')
-  const [response, setResponse] = useState('{ "status": "waiting for request" }')
-  const [responseStatus, setResponseStatus] = useState('')
+  const [response, setResponse] = useState('{ "status": "Waiting for request" }')
+  const [responseStatus, setResponseStatus] = useState('Waiting for request')
   const [headers, setHeaders] = useState({ 'Subscription-Key': '' })
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
