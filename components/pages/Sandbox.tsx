@@ -1,71 +1,116 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Send } from "lucide-react"
-import CodeBlocks from '@/components/structures/CodeBlocks'
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Send } from "lucide-react";
+import CodeBlocks from "@/components/structures/CodeBlocks";
+import SelectSDK from '@/components/structures/SelectSDK';
 
 type EndpointResponse = {
-  method: string
-  response: object
-}
+  method: string;
+  response: object;
+};
 
 // mocking sample api endpoints
 const mockEndpoints: Record<string, EndpointResponse> = {
-  '/api/users': { method: 'GET', response: { users: [{ id: 1, name: 'John Doe' }, { id: 2, name: 'Jane Smith' }] } },
-  '/api/user': { method: 'POST', response: { message: 'User created successfully', id: 3 } },
-  '/api/products': { method: 'GET', response: { products: [{ id: 1, name: 'Widget', price: 9.99 }, { id: 2, name: 'Gadget', price: 19.99 }] } },
-}
+  "/api/users": {
+    method: "GET",
+    response: {
+      users: [
+        { id: 1, name: "John Doe" },
+        { id: 2, name: "Jane Smith" },
+      ],
+    },
+  },
+  "/api/user": {
+    method: "POST",
+    response: { message: "User created successfully", id: 3 },
+  },
+  "/api/products": {
+    method: "GET",
+    response: {
+      products: [
+        { id: 1, name: "Widget", price: 9.99 },
+        { id: 2, name: "Gadget", price: 19.99 },
+      ],
+    },
+  },
+};
 
-export default function Sandbox () {
-  const [endpoint, setEndpoint] = useState('/api/users')
-  const [method, setMethod] = useState('GET')
-  const [requestBody, setRequestBody] = useState('')
-  const [response, setResponse] = useState('{ "status": "Waiting for request" }')
-  const [responseStatus, setResponseStatus] = useState('Waiting for request')
-  const [headers, setHeaders] = useState({ 'Subscription-Key': '' })
+export default function Sandbox() {
+  const [endpoint, setEndpoint] = useState("/api/users");
+  const [method, setMethod] = useState("GET");
+  const [requestBody, setRequestBody] = useState("");
+  const [response, setResponse] = useState(
+    '{ "status": "Waiting for request" }'
+  );
+  const [responseStatus, setResponseStatus] = useState("Waiting for request");
+  const [headers, setHeaders] = useState({ "Subscription-Key": "" });
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
 
     // validation logic for subs keys
-    if (subscriptionKey === 'bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8') return true;
+    if (subscriptionKey === "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8")
+      return true;
 
     return response;
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const mockResponse = mockEndpoints[endpoint]
+    const mockResponse = mockEndpoints[endpoint];
 
     // checking for subscription key
-    if (!headers['Subscription-Key']) {
-      setResponseStatus('403 Forbidden')
-      setResponse(JSON.stringify({ error: 'Missing subscription key' }, null, 2))
-      return
+    if (!headers["Subscription-Key"]) {
+      setResponseStatus("403 Forbidden");
+      setResponse(
+        JSON.stringify({ error: "Missing subscription key" }, null, 2)
+      );
+      return;
     }
 
     // validating subscription keys
-    if (!isValidSubscriptionKey(headers['Subscription-Key'])) {
-      setResponseStatus('403 Forbidden')
-      setResponse(JSON.stringify({ error: 'Invalid subscription key' }, null, 2))
-      return
+    if (!isValidSubscriptionKey(headers["Subscription-Key"])) {
+      setResponseStatus("403 Forbidden");
+      setResponse(
+        JSON.stringify({ error: "Invalid subscription key" }, null, 2)
+      );
+      return;
     }
-    
+
     if (mockResponse && mockResponse.method === method) {
-      setResponseStatus('200 OK')
-      setResponse(JSON.stringify(mockResponse.response, null, 2))
+      setResponseStatus("200 OK");
+      setResponse(JSON.stringify(mockResponse.response, null, 2));
     } else {
-      setResponseStatus('404 Not Found')
-      setResponse(JSON.stringify({ error: 'Endpoint not found or method not supported' }, null, 2))
+      setResponseStatus("404 Not Found");
+      setResponse(
+        JSON.stringify(
+          { error: "Endpoint not found or method not supported" },
+          null,
+          2
+        )
+      );
     }
-  }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -73,8 +118,15 @@ export default function Sandbox () {
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Request</CardTitle>
-            <CardDescription>Configure your API request here</CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Request</CardTitle>
+                <CardDescription>
+                  Configure your API request here
+                </CardDescription>
+              </div>
+                <SelectSDK />
+            </div>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -99,8 +151,10 @@ export default function Sandbox () {
               </div>
               <Input
                 placeholder="Subscription Key"
-                value={headers['Subscription-Key']}
-                onChange={(e) => setHeaders({ ...headers, 'Subscription-Key': e.target.value })}
+                value={headers["Subscription-Key"]}
+                onChange={(e) =>
+                  setHeaders({ ...headers, "Subscription-Key": e.target.value })
+                }
                 className="w-full"
               />
               <Textarea
@@ -127,15 +181,28 @@ export default function Sandbox () {
                 <TabsTrigger value="body">Body</TabsTrigger>
                 <TabsTrigger value="headers">Headers</TabsTrigger>
               </TabsList>
-              <TabsContent value="body" className="p-4 border rounded-md bg-gray-50">
+              <TabsContent
+                value="body"
+                className="p-4 border rounded-md bg-gray-50"
+              >
                 <pre className="whitespace-pre-wrap break-words">
-                  <CodeBlocks language='javascript'>{response}</CodeBlocks>
+                  <CodeBlocks language="javascript">{response}</CodeBlocks>
                 </pre>
               </TabsContent>
-              <TabsContent value="headers" className="p-4 border rounded-md bg-gray-50">
-                <p><strong>Status:</strong> {responseStatus}</p>
-                <p><strong>Content-Type:</strong> application/json</p>
-                <p><strong>Subscription-Key:</strong> {headers['Subscription-Key'] || 'None'}</p>
+              <TabsContent
+                value="headers"
+                className="p-4 border rounded-md bg-gray-50"
+              >
+                <p>
+                  <strong>Status:</strong> {responseStatus}
+                </p>
+                <p>
+                  <strong>Content-Type:</strong> application/json
+                </p>
+                <p>
+                  <strong>Subscription-Key:</strong>{" "}
+                  {headers["Subscription-Key"] || "None"}
+                </p>
               </TabsContent>
             </Tabs>
           </CardContent>
@@ -144,7 +211,9 @@ export default function Sandbox () {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle>Available Endpoints</CardTitle>
-          <CardDescription>Use these endpoints to test the sandbox</CardDescription>
+          <CardDescription>
+            Use these endpoints to test the sandbox
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <ul className="list-disc pl-6 space-y-2">
@@ -159,5 +228,5 @@ export default function Sandbox () {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
