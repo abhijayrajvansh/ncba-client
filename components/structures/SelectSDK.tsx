@@ -1,26 +1,24 @@
-import * as React from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const SelectSDK = () => {
+type SdkType = "curl" | "javascript";
+
+type SelectSDKProps = {
+  setSdk: (sdk: SdkType) => void;
+};
+
+const SelectSDK: React.FC<SelectSDKProps> = ({ setSdk }) => {
+  const handleSdkChange = (value: string) => {
+    setSdk(value as SdkType);
+  };
+
   return (
-    <Select defaultValue="curl">
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
+    <Select onValueChange={handleSdkChange} defaultValue="curl">
+      <SelectTrigger className="w-[150px]">
+        <SelectValue placeholder="SDK" />
       </SelectTrigger>
       <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Select Language SDK</SelectLabel>
-          <SelectItem value="curl">cURL</SelectItem>
-          <SelectItem value="javascript">JavaScript</SelectItem>
-        </SelectGroup>
+        <SelectItem value="curl">cURL</SelectItem>
+        <SelectItem value="javascript">JavaScript</SelectItem>
       </SelectContent>
     </Select>
   );

@@ -21,7 +21,9 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send } from "lucide-react";
 import CodeBlocks from "@/components/structures/CodeBlocks";
-import SelectSDK from '@/components/structures/SelectSDK';
+import SelectSDK from "@/components/structures/SelectSDK";
+
+type SdkType = "curl" | "javascript";
 
 type EndpointResponse = {
   method: string;
@@ -63,6 +65,7 @@ export default function Sandbox() {
   );
   const [responseStatus, setResponseStatus] = useState("Waiting for request");
   const [headers, setHeaders] = useState({ "Subscription-Key": "" });
+  const [selectedSdk, setSelectedSdk] = useState<SdkType>("curl"); // Specify SDK type
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
@@ -112,6 +115,22 @@ export default function Sandbox() {
     }
   };
 
+  // Sample code snippets for different SDKs
+  const codeSnippets: Record<SdkType, string> = {
+    curl: `curl -X ${method} ${endpoint} -H "Subscription-Key: ${headers["Subscription-Key"]}"`,
+    javascript: `fetch("${endpoint}", {
+  method: "${method}",
+  headers: {
+    "Subscription-Key": "${headers["Subscription-Key"]}",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(${requestBody || {}}),
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));`,
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">API Sandbox</h1>
@@ -125,7 +144,7 @@ export default function Sandbox() {
                   Configure your API request here
                 </CardDescription>
               </div>
-                <SelectSDK />
+              <SelectSDK setSdk={setSelectedSdk} /> {/* Pass setSdk function */}
             </div>
           </CardHeader>
           <CardContent>
@@ -210,21 +229,15 @@ export default function Sandbox() {
       </div>
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle>Available Endpoints</CardTitle>
+          <CardTitle>SDK Code Snippet</CardTitle>
           <CardDescription>
-            Use these endpoints to test the sandbox
+            View the code snippet for {selectedSdk.toUpperCase()}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <ul className="list-disc pl-6 space-y-2">
-            {Object.entries(mockEndpoints).map(([url, { method }]) => (
-              <li key={url}>
-                <code className="bg-gray-100 p-1 rounded">
-                  <span className="text-blue-600">{method}</span> {url}
-                </code>
-              </li>
-            ))}
-          </ul>
+          <CodeBlocks enableCopyToClipboard language={selectedSdk === "cURL" ? "bash" : "javascript"}>
+            {codeSnippets[selectedSdk]}
+          </CodeBlocks>
         </CardContent>
       </Card>
     </div>
