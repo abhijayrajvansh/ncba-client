@@ -1,0 +1,1 @@
+export type SdkType = "curl" | "javascript";
