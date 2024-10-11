@@ -28,7 +28,7 @@ const CodeBlocks = ({
 
   return (
     <div className="code">
-      <div className="flex mb-3 justify-end">
+      <div className="flex justify-end">
         {enableCopyToClipboard && (
           <CopyToClipboard text={children} onCopy={() => setCopied(true)}>
             <button className="icon copy-icon">

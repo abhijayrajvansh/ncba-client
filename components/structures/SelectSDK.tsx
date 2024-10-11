@@ -1,6 +1,5 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-type SdkType = "curl" | "javascript";
+import { SdkType } from "@/types/codeSnippet-sdk.type"
 
 type SelectSDKProps = {
   setSdk: (sdk: SdkType) => void;
@@ -12,7 +11,7 @@ const SelectSDK: React.FC<SelectSDKProps> = ({ setSdk }) => {
   };
 
   return (
-    <Select onValueChange={handleSdkChange} defaultValue="curl">
+    <Select onValueChange={handleSdkChange} defaultValue="javascript">
       <SelectTrigger className="w-[150px]">
         <SelectValue placeholder="SDK" />
       </SelectTrigger>

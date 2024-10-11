@@ -22,8 +22,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send } from "lucide-react";
 import CodeBlocks from "@/components/structures/CodeBlocks";
 import SelectSDK from "@/components/structures/SelectSDK";
+import { SdkType } from "@/types/codeSnippet-sdk.type"
 
-type SdkType = "curl" | "javascript";
 
 type EndpointResponse = {
   method: string;
@@ -65,7 +65,7 @@ export default function Sandbox() {
   );
   const [responseStatus, setResponseStatus] = useState("Waiting for request");
   const [headers, setHeaders] = useState({ "Subscription-Key": "" });
-  const [selectedSdk, setSelectedSdk] = useState<SdkType>("curl"); // Specify SDK type
+  const [selectedSdk, setSelectedSdk] = useState<SdkType>("javascript");
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
@@ -144,7 +144,6 @@ export default function Sandbox() {
                   Configure your API request here
                 </CardDescription>
               </div>
-              <SelectSDK setSdk={setSelectedSdk} /> {/* Pass setSdk function */}
             </div>
           </CardHeader>
           <CardContent>
@@ -168,14 +167,30 @@ export default function Sandbox() {
                   className="flex-grow"
                 />
               </div>
-              <Input
-                placeholder="Subscription Key"
-                value={headers["Subscription-Key"]}
-                onChange={(e) =>
-                  setHeaders({ ...headers, "Subscription-Key": e.target.value })
-                }
-                className="w-full"
-              />
+              <div className="flex items-center gap-3">
+                <Input disabled
+                  placeholder="Subscription Key"
+                  value={headers["Subscription-Key"]}
+                  onChange={(e) =>
+                    setHeaders({
+                      ...headers,
+                      "Subscription-Key": e.target.value,
+                    })
+                  }
+                  className="w-full"
+                />
+                <Button
+                  type="button"
+                  onClick={() =>
+                    setHeaders({
+                      "Subscription-Key":
+                        "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
+                    })
+                  }
+                >
+                  Generate Key
+                </Button>
+              </div>
               <Textarea
                 placeholder="Request Body (JSON)"
                 value={requestBody}
@@ -229,13 +244,19 @@ export default function Sandbox() {
       </div>
       <Card className="mt-6">
         <CardHeader>
-          <CardTitle>SDK Code Snippet</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle>SDK Code Snippet</CardTitle>
+            <SelectSDK setSdk={setSelectedSdk} />
+          </div>
           <CardDescription>
             View the code snippet for {selectedSdk.toUpperCase()}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CodeBlocks enableCopyToClipboard language={selectedSdk === "cURL" ? "bash" : "javascript"}>
+          <CodeBlocks
+            enableCopyToClipboard
+            language={selectedSdk === "curl" ? "bash" : "javascript"}
+          >
             {codeSnippets[selectedSdk]}
           </CodeBlocks>
         </CardContent>
