@@ -127,4 +127,5 @@ body {
 /* Style the scrollbar itself */
 ::-webkit-scrollbar {
   width: 9px; /* Width of the scrollbar */
+  height: 9px;
 }
