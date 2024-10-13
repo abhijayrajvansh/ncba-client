@@ -24,7 +24,7 @@ const products = [
 
 export const Products = () => {
   return (
-    <section className="py-12 bg-white text-blue-900">
+    <section className="py-12 bg-white text-blue-900 container mx-auto px-4">
       <div className="container mx-auto text-center">
         <h2 className="text-4xl font-bold mb-3">Our Products</h2>
         <p className="text-gray-600 mb-8">Here's how it works.</p>
