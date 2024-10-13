@@ -54,7 +54,7 @@ export default function Sandbox() {
     if (!headers["Subscription-Key"]) {
       setResponseStatus("403 Forbidden");
       setResponse(
-        JSON.stringify({ error: "Missing subscription key" }, null, 2)
+        JSON.stringify({ status: 403, error: "Missing subscription key" }, null, 2)
       );
       return;
     }
@@ -63,7 +63,11 @@ export default function Sandbox() {
     if (!isValidSubscriptionKey(headers["Subscription-Key"])) {
       setResponseStatus("403 Forbidden");
       setResponse(
-        JSON.stringify({ error: "Invalid subscription key" }, null, 2)
+        JSON.stringify(
+        { 
+          status: 403,
+          error: "Invalid subscription key" 
+        }, null, 2)
       );
       return;
     }
@@ -75,7 +79,10 @@ export default function Sandbox() {
       setResponseStatus("404 Not Found");
       setResponse(
         JSON.stringify(
-          { error: "Endpoint not found or method not supported" },
+          {
+            status: 404,
+            error: "Endpoint not found or method not supported" 
+          },
           null,
           2
         )
