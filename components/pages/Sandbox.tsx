@@ -24,45 +24,13 @@ import CodeBlocks from "@/components/structures/CodeBlocks";
 import SelectSDK from "@/components/structures/SelectSDK";
 import { SdkType } from "@/types/codeSnippet-sdk.type";
 import codeSnippets from '@/lib/codeSnippets';
-
-type EndpointResponse = {
-  method: string;
-  response: object;
-};
-
-// mocking sample api endpoints
-const mockEndpoints: Record<string, EndpointResponse> = {
-  "/api/users": {
-    method: "GET",
-    response: {
-      users: [
-        { id: 1, name: "John Doe" },
-        { id: 2, name: "Jane Smith" },
-      ],
-    },
-  },
-  "/api/user": {
-    method: "POST",
-    response: { message: "User created successfully", id: 3 },
-  },
-  "/api/products": {
-    method: "GET",
-    response: {
-      products: [
-        { id: 1, name: "Widget", price: 9.99 },
-        { id: 2, name: "Gadget", price: 19.99 },
-      ],
-    },
-  },
-};
+import { mockEndpoints, defaultStatusMsg } from '@/lib/mockAPIendpoints'
 
 export default function Sandbox() {
-  const [endpoint, setEndpoint] = useState("/api/users");
+  const [endpoint, setEndpoint] = useState("/api/accounts-info");
   const [method, setMethod] = useState("GET");
   const [requestBody, setRequestBody] = useState("");
-  const [response, setResponse] = useState(
-    '{ "status": "Waiting for request" }'
-  );
+  const [response, setResponse] = useState(defaultStatusMsg);
   const [responseStatus, setResponseStatus] = useState("Waiting for request");
   const [headers, setHeaders] = useState({ "Subscription-Key": "" });
   const [selectedSdk, setSelectedSdk] = useState<SdkType>("javascript");
