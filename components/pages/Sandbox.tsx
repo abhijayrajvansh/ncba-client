@@ -22,8 +22,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Send } from "lucide-react";
 import CodeBlocks from "@/components/structures/CodeBlocks";
 import SelectSDK from "@/components/structures/SelectSDK";
-import { SdkType } from "@/types/codeSnippet-sdk.type"
-
+import { SdkType } from "@/types/codeSnippet-sdk.type";
+import codeSnippets from '@/lib/codeSnippets';
 
 type EndpointResponse = {
   method: string;
@@ -115,22 +115,6 @@ export default function Sandbox() {
     }
   };
 
-  // Sample code snippets for different SDKs
-  const codeSnippets: Record<SdkType, string> = {
-    curl: `curl -X ${method} ${endpoint} -H "Subscription-Key: ${headers["Subscription-Key"]}"`,
-    javascript: `fetch("${endpoint}", {
-  method: "${method}",
-  headers: {
-    "Subscription-Key": "${headers["Subscription-Key"]}",
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(${requestBody || {}}),
-})
-.then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));`,
-  };
-
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">API Sandbox</h1>
@@ -168,7 +152,8 @@ export default function Sandbox() {
                 />
               </div>
               <div className="flex items-center gap-3">
-                <Input disabled
+                <Input
+                  disabled
                   placeholder="Subscription Key"
                   value={headers["Subscription-Key"]}
                   onChange={(e) =>
@@ -249,15 +234,15 @@ export default function Sandbox() {
             <SelectSDK setSdk={setSelectedSdk} />
           </div>
           <CardDescription>
-            View the code snippet for {selectedSdk.toUpperCase()}
+            Here is the code snippet for: {selectedSdk.toUpperCase()}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <CodeBlocks
             enableCopyToClipboard
-            language={selectedSdk === "curl" ? "bash" : "javascript"}
+            language={"javascript"}
           >
-            {codeSnippets[selectedSdk]}
+            {codeSnippets(method, endpoint, headers, requestBody)[selectedSdk]}
           </CodeBlocks>
         </CardContent>
       </Card>
