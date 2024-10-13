@@ -17,7 +17,13 @@ const SelectSDK: React.FC<SelectSDKProps> = ({ setSdk }) => {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="curl">cURL</SelectItem>
+        <SelectItem value="http">HTTP</SelectItem>
         <SelectItem value="javascript">JavaScript</SelectItem>
+        <SelectItem value="python">Python</SelectItem>
+        <SelectItem value="java">Java</SelectItem>
+        <SelectItem value="ruby">Ruby</SelectItem>
+        <SelectItem value="csharp">C#</SelectItem>
+        <SelectItem value="php">PHP</SelectItem>
       </SelectContent>
     </Select>
   );
