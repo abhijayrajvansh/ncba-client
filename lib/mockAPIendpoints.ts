@@ -9,7 +9,7 @@ export const mockEndpoints: Record<string, EndpointResponse> = {
     method: "GET",
     response: {
       accounts: [
-        { "Status": 200, "message": "success" },
+        { "status": 200, "message": "success" },
         {
           "id": "bgfh-jjds-23kj-74de",
           "AccountNo": "1234567890",
