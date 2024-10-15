@@ -58,9 +58,9 @@ const Header = () => {
           className="font-semibold border-primary text-primary hover:bg-primary hover:text-white"
           variant={"outline"}
         >
-          login
+          Login
         </Button>
-        <Button className="font-semibold">sign up</Button>
+        <Button className="font-semibold">Sign Up</Button>
       </div>
     </div>
   );
