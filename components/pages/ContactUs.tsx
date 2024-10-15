@@ -31,7 +31,7 @@ const ContactForm = () => {
       <div className="p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-blue-900">Get in touch</h2>
         <p className="text-gray-400 mb-8">
-          We're here to get you started with your open banking journey. Contact us now.
+          We are here to get you started with your open banking journey. Contact us now.
         </p>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
