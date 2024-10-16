@@ -1,10 +1,9 @@
+import FAQPage from '@/components/pages/Faqs'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      faqs
-    </div>
+    <FAQPage />
   )
 }
 
