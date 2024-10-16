@@ -1,11 +1,8 @@
-import React from 'react'
+import { redirect } from 'next/navigation'
+
 
 const page = () => {
-  return (
-    <div>
-      resources
-    </div>
-  )
+  redirect('/apis/sandbox')
 }
 
 export default page
