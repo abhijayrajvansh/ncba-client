@@ -31,17 +31,17 @@ const FAQPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 text-gray-300 p-8">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-100">Frequently asked questions</h1>
-        <p className="text-center mb-8 text-gray-400">
+    <div className="container flex justify-center mx-auto p-8 bg-gray-50 my-20 rounded">
+      <div className="w-1/2 flex flex-col items-center">
+        <h1 className="text-4xl font-bold mb-6 text-center text-blue-900 ">Frequently asked questions</h1>
+        <p className="text-center mb-8 text-gray-600">
           We understand that integrating APIs can be complex, but we are with you every step on the way. Here are some questions that might help you get started
         </p>
         <Accordion type="single" collapsible className="w-full">
           {faqItems.map((item, index) => (
             <AccordionItem key={index} value={`item-${index}`}>
-              <AccordionTrigger className="text-left">{item.question}</AccordionTrigger>
-              <AccordionContent>{item.answer}</AccordionContent>
+              <AccordionTrigger className="text-lg font-semibold ">{item.question}</AccordionTrigger>
+              <AccordionContent className='text-gray-600'>{item.answer}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
