@@ -11,10 +11,10 @@ export const headerItems = [
     title: "Products",
     link: "/products",
   },
-  {
-    title: "Resources",
-    link: "/resources",
-  },
+  // {
+  //   title: "Resources",
+  //   link: "/resources",
+  // },
   {
     title: "FAQs",
     link: "/faqs",
