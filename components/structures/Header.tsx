@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import {
   Select,
@@ -11,11 +11,26 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { headerItems } from '@/config/headerItems.config'
-
+import { headerItems } from "@/config/headerItems.config";
+import { useRouter } from "next/navigation";
+import { isAuthenticated, logout } from "@/lib/auth";
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
+  const [alreadyLoggedin, setAlreadyLoggedin] = useState<boolean>()
+
+  const handleLogout = () => {
+    logout()
+    if(pathname === '/') window.location.reload()
+    router.push('/')
+  }
+
+  useEffect(() => {
+    setAlreadyLoggedin(isAuthenticated())
+    // console.log({alreadyLoggedin})
+  })
+
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
       <Link href={"/"}>
@@ -26,15 +41,21 @@ const Header = () => {
           {headerItems.map((items) => {
             let currentPathname = "/" + items.title.toLowerCase();
             if (currentPathname === "/home") currentPathname = "/";
-            if (currentPathname === "/contact us") currentPathname = "/contact-us";
+            if (currentPathname === "/contact us")
+              currentPathname = "/contact-us";
 
-            const isActive = items.link === "/" ? pathname === "/" : pathname.startsWith(items.link);
+            const isActive =
+              items.link === "/"
+                ? pathname === "/"
+                : pathname.startsWith(items.link);
 
             return (
               <Link
                 href={items.link}
                 key={items.title}
-                className={`hover:text-primary  ${isActive ? "text-primary" : ""}`}
+                className={`hover:text-primary  ${
+                  isActive ? "text-primary" : ""
+                }`}
               >
                 {items.title}
               </Link>
@@ -54,13 +75,29 @@ const Header = () => {
           </Select>
         </div>
 
-        <Button
-          className="font-semibold border-primary text-primary hover:bg-primary hover:text-white"
-          variant={"outline"}
-        >
-          Login
-        </Button>
-        <Button className="font-semibold">Sign Up</Button>
+        {!alreadyLoggedin ? (
+          <>
+            {" "}
+            <Button
+              onClick={() => router.push("/login")}
+              className="font-semibold border-primary text-primary hover:bg-primary hover:text-white"
+              variant={"outline"}
+            >
+              Login
+            </Button>
+            <Button onClick={() => router.push("/login")} className="font-semibold">Sign Up</Button>
+          </>
+        ) : (
+          <>
+            <Button
+              onClick={handleLogout}
+              className="font-semibold border-primary text-primary hover:border-red-500 hover:bg-red-500 hover:text-white"
+              variant={"outline"}
+            >
+              Logout
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
