@@ -1,8 +1,7 @@
 'use client'
 
 import Sandbox from "@/components/pages/Sandbox";
-import React, { useEffect, useState } from "react";
-import { isAuthenticated } from "@/lib/auth";
+import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 
 const page = () => {
@@ -15,7 +14,7 @@ const page = () => {
   }, [isAuthenticated]);
 
   if (isAuthenticated === null) {
-    return <p>Loading...</p>; // Show loading indicator while auth status is being checked
+    return <p>Loading...</p>;
   }
 
   if (isAuthenticated) {
