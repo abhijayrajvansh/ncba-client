@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -19,14 +19,15 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Send } from "lucide-react";
+import { Send, Lock } from "lucide-react";
 import CodeBlocks from "@/components/structures/CodeBlocks";
 import SelectSDK from "@/components/structures/SelectSDK";
 import { SdkType } from "@/types/codeSnippet-sdk.type";
-import codeSnippets from '@/lib/codeSnippets';
-import { mockEndpoints, defaultStatusMsg } from '@/lib/mockAPIendpoints'
+import codeSnippets from "@/lib/codeSnippets";
+import { mockEndpoints, defaultStatusMsg } from "@/lib/mockAPIendpoints";
 
 export default function Sandbox() {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [endpoint, setEndpoint] = useState("/api/accounts-info");
   const [method, setMethod] = useState("GET");
   const [requestBody, setRequestBody] = useState("");
@@ -35,10 +36,22 @@ export default function Sandbox() {
   const [headers, setHeaders] = useState({ "Subscription-Key": "" });
   const [selectedSdk, setSelectedSdk] = useState<SdkType>("javascript");
 
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+    console.log({ isAuthenticated });
+
+    if (isAuthenticated) {
+      setHeaders({
+        "Subscription-Key": "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
+      });
+    }
+  }, [isAuthenticated]);
+
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
 
-    // validation logic for subs keys
+    // here goes validation logic for subs keys
     if (subscriptionKey === "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8")
       return true;
 
@@ -54,7 +67,11 @@ export default function Sandbox() {
     if (!headers["Subscription-Key"]) {
       setResponseStatus("403 Forbidden");
       setResponse(
-        JSON.stringify({ status: 403, error: "Missing subscription key" }, null, 2)
+        JSON.stringify(
+          { status: 403, error: "Missing subscription key" },
+          null,
+          2
+        )
       );
       return;
     }
@@ -64,10 +81,13 @@ export default function Sandbox() {
       setResponseStatus("403 Forbidden");
       setResponse(
         JSON.stringify(
-        { 
-          status: 403,
-          error: "Invalid subscription key" 
-        }, null, 2)
+          {
+            status: 403,
+            error: "Invalid subscription key",
+          },
+          null,
+          2
+        )
       );
       return;
     }
@@ -81,7 +101,7 @@ export default function Sandbox() {
         JSON.stringify(
           {
             status: 404,
-            error: "Endpoint not found or method not supported" 
+            error: "Endpoint not found or method not supported",
           },
           null,
           2
@@ -89,6 +109,7 @@ export default function Sandbox() {
       );
     }
   };
+
   // assign sample key in headers
   // const handleGenerateKey = () => {
   //   setHeaders({
@@ -152,10 +173,17 @@ export default function Sandbox() {
                 onChange={(e) => setRequestBody(e.target.value)}
                 rows={5}
               />
-              <Button type="submit" className="w-full">
-                <Send className="w-4 h-4 mr-2" />
-                Send Request
-              </Button>
+              {isAuthenticated ? (
+                <Button type="submit" className="w-full">
+                  <Send className="w-4 h-4 mr-2" />
+                  Send Request
+                </Button>
+              ) : (
+                <Button disabled className="w-full">
+                  {" "}
+                  <Lock className="w-4 h-4 mr-2" /> Login to Continue
+                </Button>
+              )}
             </form>
           </CardContent>
         </Card>
@@ -208,10 +236,7 @@ export default function Sandbox() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <CodeBlocks
-            enableCopyToClipboard
-            language={"javascript"}
-          >
+          <CodeBlocks enableCopyToClipboard language={"javascript"}>
             {codeSnippets(method, endpoint, headers, requestBody)[selectedSdk]}
           </CodeBlocks>
         </CardContent>

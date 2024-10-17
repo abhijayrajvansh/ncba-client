@@ -13,23 +13,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { headerItems } from "@/config/headerItems.config";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, logout } from "@/lib/auth";
+import { isAuthenticated, logout, login } from "@/lib/auth";
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [alreadyLoggedin, setAlreadyLoggedin] = useState<boolean>()
-
-  const handleLogout = () => {
-    logout()
-    if(pathname === '/') window.location.reload()
-    router.push('/')
-  }
+  const [alreadyLoggedin, setAlreadyLoggedin] = useState<boolean>(false);
 
   useEffect(() => {
-    setAlreadyLoggedin(isAuthenticated())
-    // console.log({alreadyLoggedin})
-  }, [])
+    setAlreadyLoggedin(isAuthenticated());
+  }, [pathname]);
+
+  const handleLogout = () => {
+    logout();
+    setAlreadyLoggedin(false); 
+  };
 
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
@@ -77,7 +75,6 @@ const Header = () => {
 
         {!alreadyLoggedin ? (
           <>
-            {" "}
             <Button
               onClick={() => router.push("/login")}
               className="font-semibold border-primary text-primary hover:bg-primary hover:text-white"
@@ -85,18 +82,21 @@ const Header = () => {
             >
               Login
             </Button>
-            <Button onClick={() => router.push("/login")} className="font-semibold">Sign Up</Button>
-          </>
-        ) : (
-          <>
             <Button
-              onClick={handleLogout}
-              className="font-semibold border-primary text-primary hover:border-red-500 hover:bg-red-500 hover:text-white"
-              variant={"outline"}
+              onClick={() => router.push("/login")}
+              className="font-semibold"
             >
-              Logout
+              Sign Up
             </Button>
           </>
+        ) : (
+          <Button
+            onClick={handleLogout}
+            className="font-semibold border-primary text-primary hover:border-red-500 hover:bg-red-500 hover:text-white"
+            variant={"outline"}
+          >
+            Logout
+          </Button>
         )}
       </div>
     </div>
