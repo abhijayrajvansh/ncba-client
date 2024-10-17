@@ -89,13 +89,13 @@ export default function Sandbox() {
       );
     }
   };
-
-  const handleGenerateKey = () => {
-    setHeaders({
-      "Subscription-Key":
-        "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
-    })
-  }
+  // assign sample key in headers
+  // const handleGenerateKey = () => {
+  //   setHeaders({
+  //     "Subscription-Key":
+  //       "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
+  //   })
+  // }
 
   return (
     <div className="container mx-auto p-4">
