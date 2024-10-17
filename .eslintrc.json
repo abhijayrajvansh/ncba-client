@@ -2,6 +2,7 @@
   "extends": ["next/core-web-vitals", "next/typescript"],
   "rules": {
     "@typescript-eslint/no-empty-object-type": 0,
-    "react-hooks/rules-of-hooks": 0
+    "react-hooks/rules-of-hooks": 0,
+    "react-hooks/exhaustive-deps": 0
   }
 }

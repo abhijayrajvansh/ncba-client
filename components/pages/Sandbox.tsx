@@ -31,27 +31,41 @@ export default function Sandbox() {
   const [endpoint, setEndpoint] = useState("/api/accounts-info");
   const [method, setMethod] = useState("GET");
   const [requestBody, setRequestBody] = useState("");
-  const [response, setResponse] = useState(defaultStatusMsg);
-  const [responseStatus, setResponseStatus] = useState("Waiting for request");
+  const [responseStatus, setResponseStatus] = useState("");
   const [headers, setHeaders] = useState({ "Subscription-Key": "" });
   const [selectedSdk, setSelectedSdk] = useState<SdkType>("javascript");
+
+  // New: setting different initial responses based on authentication status
+  const authenticatedResponse = JSON.stringify(
+    { status: "waiting for request" },
+    null,
+    2
+  );
+
+  const [response, setResponse] = useState(
+    isAuthenticated ? authenticatedResponse : defaultStatusMsg
+  );
 
   useEffect(() => {
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(authStatus);
-    console.log({ isAuthenticated });
 
-    if (isAuthenticated) {
+    if (authStatus) {
       setHeaders({
         "Subscription-Key": "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
       });
+      // Set response for authenticated users
+      setResponse(authenticatedResponse);
+    } else {
+      // Reset to default response if not authenticated
+      setResponse(defaultStatusMsg);
     }
   }, [isAuthenticated]);
 
   const isValidSubscriptionKey = (subscriptionKey: string) => {
     const response = false;
 
-    // here goes validation logic for subs keys
+    // Validation logic for subscription keys
     if (subscriptionKey === "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8")
       return true;
 
@@ -109,14 +123,6 @@ export default function Sandbox() {
       );
     }
   };
-
-  // assign sample key in headers
-  // const handleGenerateKey = () => {
-  //   setHeaders({
-  //     "Subscription-Key":
-  //       "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
-  //   })
-  // }
 
   return (
     <div className="container mx-auto p-4">

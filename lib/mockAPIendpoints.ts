@@ -1,7 +1,8 @@
 import { EndpointResponse } from '@/types/endpointResponse.types'
 
 export const defaultStatusMsg = `{ 
-  "status": "waiting for requests" 
+  "status": 403,
+  "message": "missing subscription key, login to generate key"
 }`
 
 export const mockEndpoints: Record<string, EndpointResponse> = {
