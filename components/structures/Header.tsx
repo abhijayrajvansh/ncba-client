@@ -29,7 +29,7 @@ const Header = () => {
   useEffect(() => {
     setAlreadyLoggedin(isAuthenticated())
     // console.log({alreadyLoggedin})
-  })
+  }, [])
 
   return (
     <div className="flex justify-between py-3 px-10 mb-6 border-b items-center shadow-md bg-white text-black">
