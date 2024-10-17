@@ -90,6 +90,13 @@ export default function Sandbox() {
     }
   };
 
+  const handleGenerateKey = () => {
+    setHeaders({
+      "Subscription-Key":
+        "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
+    })
+  }
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-6">API Sandbox</h1>
@@ -128,7 +135,6 @@ export default function Sandbox() {
               </div>
               <div className="flex items-center gap-3">
                 <Input
-                  disabled
                   placeholder="Subscription Key"
                   value={headers["Subscription-Key"]}
                   onChange={(e) =>
@@ -139,17 +145,6 @@ export default function Sandbox() {
                   }
                   className="w-full"
                 />
-                <Button
-                  type="button"
-                  onClick={() =>
-                    setHeaders({
-                      "Subscription-Key":
-                        "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
-                    })
-                  }
-                >
-                  Generate Key
-                </Button>
               </div>
               <Textarea
                 placeholder="Request Body (JSON)"
