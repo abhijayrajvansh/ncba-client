@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { headerItems } from "@/config/headerItems.config";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, logout, login } from "@/lib/auth";
+import { isAuthenticated, logout } from "@/lib/auth";
 
 const Header = () => {
   const pathname = usePathname();
