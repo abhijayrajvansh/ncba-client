@@ -19,7 +19,7 @@ const Login = () => {
     if (email === mockEmail && password === mockPassword) {
       localStorage.setItem('isAuthenticated', 'true');
       // here to redirect to sit create subscription page
-      router.push('/'); 
+      router.push('/products'); 
     } else {
       setError('Invalid email or password');
     }

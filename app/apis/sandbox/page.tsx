@@ -1,10 +1,29 @@
-import Sandbox from '@/components/pages/Sandbox'
-import React from 'react'
+'use client'
+
+import Sandbox from "@/components/pages/Sandbox";
+import React, { useEffect, useState } from "react";
+import { isAuthenticated } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 const page = () => {
-  return (
-    <Sandbox />
-  )
-}
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-export default page
+  useEffect(() => {
+    const authStatus = localStorage.getItem("isAuthenticated") === "true";
+    setIsAuthenticated(authStatus);
+    console.log({isAuthenticated})
+  }, [isAuthenticated]);
+
+  if (isAuthenticated === null) {
+    return <p>Loading...</p>; // Show loading indicator while auth status is being checked
+  }
+
+  if (isAuthenticated) {
+    return <Sandbox />;
+  }
+
+  redirect('/login')
+  return null;
+};
+
+export default page;
