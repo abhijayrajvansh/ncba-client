@@ -5,7 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { products } from "@/config/product.config";
 import { useRouter, usePathname } from "next/navigation";
-import { isAuthenticated, logout } from "@/lib/auth";
+import { isAuthenticated } from "@/lib/auth";
+import GenerateKey from '@/components/structures/Generatekey'
 
 export default function ApiDocsPage() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function ApiDocsPage() {
           </Button>
         ) : (
           <>
-            <Button variant={'outline'} className="text-black mt-5">Generate Subscription Key</Button>
+            <GenerateKey />
           </>
         )}
       </div>
@@ -66,7 +67,7 @@ export default function ApiDocsPage() {
                     View Docs
                   </Button>
                   <Button
-                    onClick={() => console.log("clicked")}
+                    onClick={() => router.push('/apis/sandbox')}
                     className="text-white"
                   >
                     View Details
