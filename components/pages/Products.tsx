@@ -1,7 +1,8 @@
-
+'use client'
 
 import React from "react";
 import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 
 const products = [
@@ -27,6 +28,8 @@ const products = [
 
 export const Products = () => {
 
+  const router = useRouter();
+
   return (
     <section className="py-12 bg-white text-blue-900 container mx-auto px-4">
       <div className="container mx-auto text-center">
@@ -46,7 +49,7 @@ export const Products = () => {
                 <p className="text-sm text-gray-700">{product.description}</p>
               </div>
               <div>
-                <Button className="w-full">Let&apos;s Explore</Button>
+                <Button onClick={() => router.push('/products/sit')} className="w-full">Let&apos;s Explore</Button>
               </div>
             </div>
           ))}

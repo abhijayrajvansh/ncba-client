@@ -52,7 +52,7 @@ export default function Sandbox() {
 
     if (authStatus) {
       setHeaders({
-        "Subscription-Key": "bjHY1LOwXfIzBwJXYnR4hCLcrO7sN2mz5gM2hTNqO8",
+        "Subscription-Key": "",
       });
       // Set response for authenticated users
       setResponse(authenticatedResponse);
