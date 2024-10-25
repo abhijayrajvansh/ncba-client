@@ -1,15 +1,25 @@
-'use client'
+"use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { products } from "@/config/product.config";
+import { useRouter, usePathname } from "next/navigation";
+import { isAuthenticated, logout } from "@/lib/auth";
 
 export default function ApiDocsPage() {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [alreadyLoggedin, setAlreadyLoggedin] = useState<boolean>(false);
+
+  useEffect(() => {
+    setAlreadyLoggedin(isAuthenticated());
+  }, [pathname]);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header Section */}
-      <div className="bg-primary text-white p-8 flex justify-around">
+      <div className="bg-primary text-white p-8 flex justify-around px-1">
         <div>
           <h1 className="text-4xl font-bold mb-2">TEST IN SIT ENVIRONMENT</h1>
           <p className="text-gray-100">
@@ -17,16 +27,25 @@ export default function ApiDocsPage() {
             yourself in our secure sandbox environment.
           </p>
         </div>
-        <Button variant={'outline'} className=" mt-4 text-black">Login →</Button>
+        {!alreadyLoggedin ? (
+          <Button
+            onClick={() => router.push("/login")}
+            variant={"outline"}
+            className=" mt-5 text-black"
+          >
+            Login →
+          </Button>
+        ) : (
+          <>
+            <Button variant={'outline'} className="text-black mt-5">Generate Subscription Key</Button>
+          </>
+        )}
       </div>
 
       {/* API Listings */}
       <div className="mx-auto p-8 bg-[#f3f4f6] mt-10 container rounded-lg">
         {products.map((endpoint, index) => (
-          <Card
-            key={index}
-            className="mb-4 text-white "
-          >
+          <Card key={index} className="mb-4 text-white ">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -46,7 +65,8 @@ export default function ApiDocsPage() {
                   >
                     View Docs
                   </Button>
-                  <Button onClick={() => console.log('clicked')}
+                  <Button
+                    onClick={() => console.log("clicked")}
                     className="text-white"
                   >
                     View Details
